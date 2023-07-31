@@ -8,7 +8,7 @@ from typing import List
 import openai
 
 # Load your OpenAI API key
-models.OpenAI.api_key = "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"
+models.OpenAI.api_key = "Enter Your Api Key"
 # or from environment variable:
 # models.OpenAI.api_key = os.getenv("OPENAI_API_KEY")
 
