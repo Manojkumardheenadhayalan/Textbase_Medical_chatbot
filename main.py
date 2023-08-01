@@ -8,7 +8,7 @@ from typing import List
 import openai
 
 # Load your OpenAI API key
-models.OpenAI.api_key = "Enter Your Api Key"
+models.OpenAI.api_key = "enter your api key"
 # or from environment variable:
 # models.OpenAI.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -26,23 +26,6 @@ with open("mtsamples.csv", newline="", encoding="utf-8") as csvfile:
         keywords = row["keywords"].lower().strip()
         if keywords:
             medical_keywords.update(keywords.split(","))
-
-# Medical Knowledge Base (Sample Data)
-medical_knowledge_base = {
-    "covid": {
-        "symptoms": "The symptoms of COVID-19 include fever, cough, shortness of breath, fatigue, body aches, loss of taste or smell, sore throat, and more. If you have any specific concerns or symptoms, please consult a healthcare professional for personalized advice.",
-        "first_aid": "If you suspect you have COVID-19 or have been exposed to the virus, self-isolate, wear a mask, and seek medical advice immediately.",
-    },
-    "cancer": {
-        "symptoms": "The symptoms of cancer can vary depending on the type and stage of cancer. Common symptoms include unexplained weight loss, persistent fatigue, lumps or swelling, changes in skin or moles, and difficulty swallowing. If you experience any concerning symptoms, consult a healthcare professional.",
-        "first_aid": "First aid for cancer involves early detection and timely medical consultation. Regular screenings and healthy lifestyle choices can reduce the risk of certain cancers.",
-    },
-    "flu": {
-        "symptoms": "The symptoms of flu (influenza) include fever, chills, cough, sore throat, body aches, fatigue, and more. Rest, hydration, and over-the-counter medications can help manage symptoms, but consult a doctor if symptoms worsen.",
-        "first_aid": "If you have the flu, rest, drink plenty of fluids, and take over-the-counter medications to relieve symptoms. Seek medical attention if symptoms are severe or persist.",
-    },
-    # Add more medical conditions and their corresponding first aid and symptoms information as needed.
-}
 
 @textbase.chatbot("medical-bot")
 def on_message(message_history: List[Message], state: dict = None):
@@ -77,17 +60,7 @@ def on_message(message_history: List[Message], state: dict = None):
     return bot_response, state
 
 def process_medical_question(user_message: str) -> str:
-    # Your custom logic to handle medical-related questions and provide accurate answers.
-
-    for condition, data in medical_knowledge_base.items():
-        if condition in user_message:
-            # If the medical condition is found in the user's message, provide first aid and symptoms information.
-            first_aid = data.get("first_aid", "First aid information not available.")
-            symptoms = data.get("symptoms", "Symptoms information not available.")
-            bot_response = f"For {condition}, First Aid: {first_aid}. Symptoms: {symptoms}"
-            return bot_response
-
-    # If the medical condition is not found, generate a response using GPT-3.5 Turbo.
+    # Use the GPT-3.5 Turbo model to generate a response for the medical-related question.
     prompt = f"Medical question: {user_message}\n"
     response = openai.Completion.create(
         engine="text-davinci-002",  # You can use gpt-3.5-turbo here if you have access to it.
