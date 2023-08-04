@@ -8,13 +8,12 @@ from typing import List
 import openai
 
 # Load your OpenAI API key
-models.OpenAI.api_key = "enter your api key"
+models.OpenAI.api_key = "nil"
 # or from environment variable:
 # models.OpenAI.api_key = os.getenv("OPENAI_API_KEY")
 
 # Prompt for GPT-3.5 Turbo
-SYSTEM_PROMPT = """You are chatting with an AI medical expert. Please ask any medical-related questions, and I'll provide you with accurate answers!
-"""
+SYSTEM_PROMPT = """You are chatting with an AI medical expert. Please ask any medical-related questions, and I'll provide you with accurate answers!"""
 
 # Set to store medical keywords
 medical_keywords = set()
